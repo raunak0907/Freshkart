@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FreshKart Products</title>
+</head>
+<body>
+  <h1>Product Listing</h1>
+
+  {% for product in products %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+      <h3>{{ product[1] }}</h3>
+      <img src="{{ product[2] }}" width="100" height="100">
+      <p>{{ product[3] }}</p>
+      <p><strong>₹{{ product[4] }}</strong></p>
+      <a href="/add-to-cart/{{ product[0] }}">Add to Cart</a>
+    </div>
+  {% endfor %}
+
+  <a href="/cart">🛒 View Cart</a>
+</body>
+</html>
