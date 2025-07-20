@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmation - FreshKart{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <i class="fa-solid fa-circle-check text-success fa-4x mb-4"></i>
+    <h2>Thank you, {{ name }}!</h2>
+    <p class="lead">Your order was placed successfully. 🎉</p>
+
+    {% if invoice %}
+    <a href="/{{ invoice }}" class="btn btn-outline-success mt-3" download>
+        <i class="fa-solid fa-file-pdf"></i> Download Invoice
+    </a>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-primary mt-3">
+        <i class="fa-solid fa-house"></i> Back to Home
+    </a>
+</div>
+{% endblock %}

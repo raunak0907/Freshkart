@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - FreshKart{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h2 class="mb-4 text-success"><i class="fa-solid fa-credit-card me-2"></i>Checkout</h2>
+
+      <form method="POST" action="{{ url_for('checkout') }}" class="shadow p-4 rounded bg-white">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Delivery Address</label>
+          <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="fw-bold fs-5 text-success">
+            {% set total = 0 %}
+            {% for product, qty, subtotal, discounted_price in cart_items %}
+              {% set total = total + subtotal %}
+            {% endfor %}
+            Total Payable: ₹{{ '%.2f'|format(total) }}
+          </div>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fa-solid fa-bolt me-1"></i> Confirm & Generate Invoice
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,37 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>FreshKart - Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">FreshKart</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        {% if session['username'] %}
-        <li class="nav-item"><a class="nav-link disabled">Welcome, {{ session['username'] }}</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-        {% endif %}
-        <li class="nav-item"><a class="nav-link" href="/products">Shop</a></li>
-        <li class="nav-item"><a class="nav-link" href="/cart">Cart 🛒</a></li>
-      </ul>
+{% extends 'base.html' %}
+
+{% block title %}Welcome to FreshKart{% endblock %}
+
+{% block content %}
+<style>
+  .home-hero {
+    background: linear-gradient(to right, #a8e063, #56ab2f);
+    color: white;
+    padding: 70px 20px 50px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .home-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
+  .typewriter {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #eaffea;
+    margin-top: 10px;
+    min-height: 30px;
+  }
+  .brand-logo {
+    width: 80px;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease-in-out;
+  }
+  .fade-up {
+    animation: fadeInUp 1.5s ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .feature-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    height: 100%;
+    transition: transform 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  .feature-icon {
+    width: 50px;
+    margin-bottom: 15px;
+  }
+</style>
+
+<div class="home-hero mb-5">
+  <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" class="brand-logo" alt="FreshKart Logo">
+  <h1 class="fade-up">Welcome to <span class="text-white">FreshKart</span></h1>
+  <div id="typewriter-text" class="typewriter fade-up"></div>
+  <a href="/products" class="btn btn-light btn-lg mt-4 fade-up">
+    <i class="fas fa-shopping-basket me-2"></i> Start Shopping
+  </a>
+</div>
+
+<h2 class="text-center mb-4 fw-bold">Why Shop with Us?</h2>
+<div class="row text-center">
+  <div class="col-md-4 mb-4">
+    <div class="feature-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1046/1046750.png" class="feature-icon" alt="Fresh Produce">
+      <h5 class="fw-bold">Fresh & Organic</h5>
+      <p>Handpicked fruits and veggies delivered from farm to table.</p>
     </div>
   </div>
-</nav>
-
-<div class="container mt-5 text-center">
-  <h1>Welcome to FreshKart 🛍️</h1>
-  <p>Your daily grocery needs delivered fast and fresh.</p>
-  <a class="btn btn-success mt-3" href="/products">Start Shopping</a>
+  <div class="col-md-4 mb-4">
+    <div class="feature-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3514/3514240.png" class="feature-icon" alt="Fast Delivery">
+      <h5 class="fw-bold">Instant Delivery</h5>
+      <p>15-minute delivery guaranteed in select cities. Never wait again!</p>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="feature-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/726/726448.png" class="feature-icon" alt="Best Prices">
+      <h5 class="fw-bold">Unbeatable Prices</h5>
+      <p>Wholesale deals with daily discounts and cashback offers.</p>
+    </div>
+  </div>
 </div>
-</body>
-</html>
+
+<h2 class="text-center mt-5 mb-4 fw-bold">Top Categories</h2>
+<div class="row text-center">
+  <div class="col-6 col-md-3 mb-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/766/766087.png" width="60" alt="Fruits"><br>
+    <strong>Fruits</strong>
+  </div>
+  <div class="col-6 col-md-3 mb-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" width="60" alt="Vegetables"><br>
+    <strong>Vegetables</strong>
+  </div>
+  <div class="col-6 col-md-3 mb-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046791.png" width="60" alt="Dairy"><br>
+    <strong>Dairy</strong>
+  </div>
+  <div class="col-6 col-md-3 mb-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" width="60" alt="Snacks"><br>
+    <strong>Snacks</strong>
+  </div>
+</div>
+
+<script>
+  const phrases = [
+    "Delivering freshness in 15 minutes!",
+    "Over 1000+ products available now.",
+    "100% Organic. 100% Trusted.",
+    "Join 10,000+ happy customers!"
+  ];
+  let i = 0, j = 0, currentPhrase = [], isDeleting = false, isEnd = false;
+  const element = document.getElementById("typewriter-text");
+
+  function typeLoop() {
+    isEnd = false;
+    element.innerHTML = currentPhrase.join('');
+
+    if (i < phrases.length) {
+      if (!isDeleting && j <= phrases[i].length) {
+        currentPhrase.push(phrases[i][j]);
+        j++;
+      }
+
+      if (isDeleting && j > 0) {
+        currentPhrase.pop();
+        j--;
+      }
+
+      if (j === phrases[i].length) {
+        isEnd = true;
+        isDeleting = true;
+      }
+
+      if (isDeleting && j === 0) {
+        currentPhrase = [];
+        isDeleting = false;
+        i++;
+        if (i === phrases.length) {
+          i = 0;
+        }
+      }
+    }
+
+    const speed = isEnd ? 1200 : isDeleting ? 50 : 100;
+    setTimeout(typeLoop, speed);
+  }
+
+  document.addEventListener("DOMContentLoaded", typeLoop);
+</script>
+{% endblock %}

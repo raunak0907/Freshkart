@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="freshkart.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1724"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="cart_items" custom_title="0" dock_id="1" table="4,10:maincart_items"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000011300ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">-- Create the products table
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    image TEXT,
+    description TEXT,
+    price REAL NOT NULL
+);
+
+-- Insert sample products
+INSERT INTO products (name, image, description, price) VALUES
+('Fresh Apples', 'https://i.imgur.com/eTmWoAN.png', 'Crisp and juicy apples from Himachal', 120),
+('Organic Bananas', 'https://i.imgur.com/UPrs1EW.png', 'Naturally ripened bananas', 50),
+('Whole Wheat Atta', 'https://i.imgur.com/2nCt3Sb.png', 'Stone-ground whole wheat flour', 240),
+('Cold-Pressed Groundnut Oil', 'https://i.imgur.com/qPR9M6a.png', 'Pure wood-pressed cooking oil', 330),
+('Basmati Rice 5kg', 'https://i.imgur.com/M0l9P0z.png', 'Premium aged basmati rice', 599);
+
+-- Create the users table
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
