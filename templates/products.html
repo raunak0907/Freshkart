@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
-{% block title %}FreshKart - Shop Products{% endblock %}
+{% block title %}Products - FreshKart{% endblock %}
 
 {% block content %}
-<h2 class="text-center fw-bold mb-4">🛍️ Shop Fresh Products</h2>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for product in products %}
-  <div class="col">
-    <div class="card h-100 shadow-sm border-light">
-      <img src="{{ product[2] }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ product[1] }}">
-
-      <div class="card-body">
-        <h5 class="card-title fw-semibold">{{ product[1] }}</h5>
-        <p class="mb-1 text-muted small">{{ product[8] }} — <em>{{ product[5] }}</em></p>
-
-        <p class="card-text">{{ product[3] }}</p>
-
-        {% if product[7] > 0 %}
-          <span class="badge bg-success mb-2">{{ product[7] }}% OFF</span><br>
-          <p class="mb-1">
-            <span class="text-danger fw-bold">₹ {{ product[4] - (product[4] * product[7] / 100) | round(0, 'floor') }}</span>
-            <span class="text-muted text-decoration-line-through small">₹ {{ product[4] }}</span>
-          </p>
-        {% else %}
-          <p class="mb-1 fw-bold">₹ {{ product[4] }}</p>
-        {% endif %}
-
-        <small class="text-muted">Stock: {{ product[6] }}</small>
-      </div>
-
-      <div class="card-footer bg-white border-0 d-flex justify-content-between">
-        {% if product[6] > 0 %}
-        <a href="{{ url_for('add_to_cart', product_id=product[0]) }}" class="btn btn-sm btn-outline-success">
-          <i class="fas fa-cart-plus me-1"></i>Add to Cart
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-success">🛍️ Browse Products</h2>
+        <a href="{{ url_for('view_cart') }}" class="btn btn-outline-primary position-relative">
+            🛒 View Cart
+            {% if session.cart %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ session.cart|length }}
+            </span>
+            {% endif %}
         </a>
-        {% else %}
-        <button class="btn btn-sm btn-outline-danger" disabled>
-          <i class="fas fa-times-circle me-1"></i>Out of Stock
-        </button>
-        {% endif %}
-        <a href="{{ url_for('view_cart') }}" class="btn btn-sm btn-outline-primary">
-          <i class="fas fa-shopping-cart me-1"></i>Your Cart
-        </a>
-      </div>
     </div>
-  </div>
-  {% endfor %}
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted">{{ product.description }}</p>
+                    <p class="mb-1"><strong>Brand:</strong> {{ product.brand }}</p>
+                    <p>
+                        {% if product.discount > 0 %}
+                            <span class="text-danger fw-bold">₹{{ product.discounted_price }}</span>
+                            <span class="text-muted text-decoration-line-through">₹{{ product.price }}</span>
+                            <span class="badge bg-success">{{ product.discount }}% OFF</span>
+                        {% else %}
+                            <span class="fw-bold">₹{{ product.price }}</span>
+                        {% endif %}
+                    </p>
+                    <p><strong>Stock:</strong> {{ product.stock }}</p>
+                    {% if product.stock > 0 %}
+                        <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-success w-100">Add to Cart</a>
+                    {% else %}
+                        <button class="btn btn-secondary w-100" disabled>Out of Stock</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

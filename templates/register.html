@@ -1,27 +1,95 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block title %}Register - FreshKart{% endblock %}
 
 {% block content %}
-<div class="mx-auto" style="max-width: 450px;">
-  <div class="card shadow-sm p-4">
-    <h3 class="text-center mb-4">📝 Create Your Account</h3>
-    <form method="POST">
-      <div class="mb-3">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" required placeholder="Enter your name">
-      </div>
-      <div class="mb-3">
-        <label>Email</label>
-        <input type="email" name="email" class="form-control" required placeholder="you@example.com">
-      </div>
-      <div class="mb-3">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required placeholder="Create password">
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Register</button>
-    </form>
-    <p class="text-center mt-3">Already have an account? <a href="/login">Login here</a></p>
+<style>
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .register-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    padding: 2.5rem 3rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 0.8s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .register-glass h2 {
+    font-weight: 700;
+    color: #00ffcc;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .register-glass input {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+
+  .register-glass input::placeholder {
+    color: #aaa;
+  }
+
+  .register-glass button {
+    background: #00ffcc;
+    color: #111;
+    font-weight: bold;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    transition: 0.3s ease;
+  }
+
+  .register-glass button:hover {
+    background: #02e6b2;
+  }
+
+  .register-glass .login-link {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+
+  .register-glass .login-link a {
+    color: #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="register-glass">
+  <h2>Create Your FreshKart Account</h2>
+  <form method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="password" name="password" placeholder="Choose Password" required>
+    <button type="submit">Register</button>
+  </form>
+  <div class="login-link">
+    Already have an account? <a href="{{ url_for('login') }}">Login here</a>
   </div>
 </div>
 {% endblock %}

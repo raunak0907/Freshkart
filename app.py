@@ -112,8 +112,30 @@ def reset_password():
 def products():
     cur = get_db().cursor()
     cur.execute("SELECT * FROM products")
-    products = cur.fetchall()
-    return render_template('products.html', products=products)
+    raw_products = cur.fetchall()
+
+    # Safely parse
+    products = []
+    for product in raw_products:
+        stock = int(product[5]) if product[5] else 0
+        price = float(product[4]) if product[4] else 0.0
+        discount = int(product[6]) if product[6] else 0
+        discounted_price = price - (price * discount / 100)
+
+        products.append({
+            "id": product[0],
+            "name": product[1],
+            "image": product[2],
+            "description": product[3],
+            "price": price,
+            "stock": stock,
+            "discount": discount,
+            "brand": product[7],
+            "category": product[8],
+            "discounted_price": round(discounted_price, 2)
+        })
+
+    return render_template("products.html", products=products)
 
 @app.route('/add-to-cart/<int:product_id>')
 def add_to_cart(product_id):
@@ -153,15 +175,24 @@ def view_cart():
     for product in products:
         pid = str(product[0])
         qty = cart.get(pid, 0)
-        price = float(product[4])
-        discount = float(product[6]) if product[6] else 0.0
+
+        price = float(product[4]) if product[4] else 0.0
+        discount = int(product[6]) if product[6] else 0
         discounted_price = price - (price * discount / 100)
         subtotal = qty * discounted_price
         total += subtotal
 
-        cart_items.append((product, qty, round(subtotal, 2), round(discounted_price, 2)))
+        cart_items.append({
+            "id": product[0],
+            "name": product[1],
+            "image": product[2],
+            "qty": qty,
+            "discounted_price": round(discounted_price, 2),
+            "subtotal": round(subtotal, 2)
+        })
 
-    return render_template('cart.html', cart_items=cart_items, total=round(total, 2))
+    return render_template("cart.html", cart_items=cart_items, total=round(total, 2))
+
 
 
 @app.route('/checkout', methods=['GET', 'POST'])
