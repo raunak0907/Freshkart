@@ -9,7 +9,7 @@
 
 ## 🚀 Demo
 
-🌐 Live Deployment (optional): [https://freshkart-demo.vercel.app](#)
+
 
 📽️ Preview Screenshots:
 
